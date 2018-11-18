@@ -3,17 +3,25 @@
   <head>
     <title><%= full_title(yield(:title)) %></title>
     <%= csrf_meta_tags %>
-    <%= stylesheet_link_tag    'application', media: 'all',
-                               'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'application',
-                               'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag     'application', media: 'all',
+                                'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag  'application',
+                                'data-turbolinks-track': 'reload' %>
     <%= render 'layouts/shim' %>
   </head>
   <body>
     <%= render 'layouts/header' %>
     <div class="container">
+      <!-- flash変数の内容をWebサイトのレイアウトに追加する -->
+      <% flash.each do |message_type, message| %>
+        <!--<div class="alert alert-<%= message_type %>"> --><%#= message</div> %>
+        <%# う〜む、上と下、どちらが読みやすい？ %>
+        <%= content_tag(:div, message, class: "alert alert-#{message_type}") %>
+      <% end %>
       <%= yield %>
       <%= render 'layouts/footer' %>
+      <!-- 開発環境でのみ、デバッグ情報を表示する -->
+      <%= debug(params) if Rails.env.development? %>
     </div>
   </body>
 </html>
