@@ -10,7 +10,7 @@ class User < ApplicationRecord
                     uniqueness: { case_sensitive: false } # メールアドレスの大文字小文字を無視した一意性の検証
 
   has_secure_password
-  validates :password, presence: true, length: { minimum: 6 }
+  validates :password, presence: true, length: { minimum: 6 }, allow_nil: true
 
   class << self #（9.1.1 の演習を参照）
     # 渡された文字列のハッシュ値を返す
